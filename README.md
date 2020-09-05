@@ -15,6 +15,8 @@ Creates a queue of a generic type `T` with a maximum queue size. If `maxlength` 
 NOTE: If the queue grows to `maxlength` items (and you dont take them out) any additional items added *will drop out of the queue*.
 Please bear this in mind when defining maxlength so it is a reasonable balance between RAM usage and functional usefulness.
 
+NOTE: if provided a byte* buffer second parameter allow you to pre-allocate the buffer (ex: external memory, PSRAM, which required sepcific allocation). The queue won't allocate the buffer internally and won't free up the buffer on destructor. You'll have be carefull to provide the right buffer size and max lentgh.
+
 **Examples**
 
 ```cpp
@@ -23,6 +25,8 @@ Queue<int> queue = Queue<int>(); // Queue of max 256 int
 Queue<char> queue = Queue<char>(260); // Queue of max 260 chars
 Queue<Point> queue = Queue<Point>(10); // Queue of max 10 'Point', where 'Point' is a struct 
 Queue<String> queue = Queue<String>(); // Queue of max 256 'String', where 'String' is a class
+
+Queue<byte> queue = Queue<byte>(1000, buff); //skip internal creation of the buffer and used the provided buff pointer (destructor don't free up the buffer)
 ```
 
 ## Methods

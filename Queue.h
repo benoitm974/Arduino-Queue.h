@@ -43,16 +43,20 @@ class Queue {
     int _front, _back, _count;
     T *_data;
     int _maxitems;
+    bool _extBuffer;
   public:
-    Queue(int maxitems = 256) { 
+    Queue(int maxitems = 256, byte *buffer = NULL) { 
       _front = 0;
       _back = 0;
       _count = 0;
       _maxitems = maxitems;
-      _data = new T[maxitems + 1];   
+      _extBuffer = ( buffer != NULL ) ? true : false;
+      _data = (_extBuffer) ? buffer : new T[maxitems + 1];
     }
     ~Queue() {
-      delete[] _data;  
+      if (!_extBuffer) {
+        delete[] _data;
+      }
     }
     inline int count();
     inline int front();
