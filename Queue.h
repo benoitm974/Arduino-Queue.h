@@ -32,8 +32,8 @@
  * 
  */
 
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUE_ARDUINO_H
+#define QUEUE_ARDUINO_H
 
 #include <Arduino.h>
 
@@ -51,7 +51,7 @@ class Queue {
       _count = 0;
       _maxitems = maxitems;
       _extBuffer = ( buffer != NULL ) ? true : false;
-      _data = (_extBuffer) ? buffer : new T[maxitems + 1];
+      _data = (_extBuffer) ? (T*) buffer : new T[maxitems + 1];
     }
     ~Queue() {
       if (!_extBuffer) {
